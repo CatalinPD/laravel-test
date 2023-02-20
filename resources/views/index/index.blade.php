@@ -12,5 +12,16 @@
 
     <p>Welcome to the Laravel IMDB project</p>
 
+    <h2>Top movies</h2>
+
+    <ul>
+        <?php foreach ($movies as $movie) : ?>
+            <li>
+                <?= $movie->name ?>
+                (<?= $movie->year ?>)
+            </li>
+        <?php endforeach; ?>
+    </ul>
+
 </body>
 </html>
