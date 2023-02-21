@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AwardController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\MovieController;
+use App\Http\Controllers\PersonController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +24,7 @@ Route::get('/', [IndexController::class, 'index']);
 // handle the request with the AwardController
 // and its index() method
 Route::get('/awards', [AwardController::class, 'index']);
+
+Route::get('/movies', [MovieController::class, 'index']);
+Route::get('/people', [PersonController::class, 'index']);
+Route::get('/movies/shawshank', [MovieController::class, 'shawshank']);

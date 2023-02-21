@@ -19,6 +19,17 @@
             <li>
                 <?= $movie->name ?>
                 (<?= $movie->year ?>)
+                <br>
+                Type: <?= $movie->movieType->name ?>
+                <br>
+                Genres:
+                <ul>
+                    <?php foreach ($movie->genres as $genre) : ?>
+                        <li>
+                            <?= $genre->name ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
             </li>
         <?php endforeach; ?>
     </ul>
