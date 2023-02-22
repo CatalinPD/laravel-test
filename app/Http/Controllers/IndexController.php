@@ -35,8 +35,6 @@ class IndexController extends Controller
             ->orderBy('year', 'asc')
             ->get();
 
-        dd($action_movies->pluck('name'));
-
         $movies = Movie::where('votes_nr', '>', 5000)
             ->where('movie_type_id', 1)
             ->orderBy('rating', 'desc')

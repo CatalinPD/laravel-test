@@ -1,32 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>List of movies</title>
-</head>
-<body>
+@include('common.html-start')
+
+    <a href="{{ route('homepage') }}">Home</a>
+
+    <a href="{{ route('movies.index') }}">
+        List of movies
+    </a>
 
     <h1>Movies that begin with "The"</h1>
     <ul>
-        <?php foreach ($movies as $movie) : ?>
+        @php
+            $movies = $movies->sort();
+
+
+        @endphp
+
+        @foreach ($movies as $movie)
             <li>
-                <?= $movie->name ?>
-                (<?= $movie->year ?>)
+                <a href="{{ route('movies.show', $movie->id) }}">
+                    {!! $movie->name !!}
+                    ({{ $movie->year }})
+                </a>
             </li>
-        <?php endforeach; ?>
+        @endforeach
     </ul>
+
+    <!-- This appears in the HTML code -->
+    {{-- This does NOT appear in the HTML code  --}}
 
     <h2>Choose a year to filter the results</h2>
 
     <ul>
-        <?php foreach($movies->pluck('year')->unique()->sort() as $year) : ?>
+        @foreach($movies->pluck('year')->unique()->sort() as $year)
             <li>
-                <?= $year ?>
+                {{ $year }}
             </li>
-        <?php endforeach; ?>
+        @endforeach
     </ul>
 
-</body>
-</html>
+@include('common.html-end')

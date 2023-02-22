@@ -52,6 +52,37 @@ class MovieController extends Controller
         ]);
     }
 
+    /**
+     * shows the detail of one specific movie using the
+     * value of its primary key (id)
+     */
+    public function show($movie_id, $style = 'simple')
+    {
+        $movie = Movie::findOrFail($movie_id);
+
+        $all_people = DB::select("
+            SELECT `positions`.`name` AS position_name, `people`.*
+            FROM `movie_person`
+            LEFT JOIN `positions`
+                ON `movie_person`.`position_id` = `positions`.`id`
+            LEFT JOIN `people`
+                ON `movie_person`.`person_id` = `people`.`id`
+            WHERE `movie_person`.`movie_id` = ?
+        ", [
+            $movie->id
+        ]);
+
+        $people_sorted_by_position = [];
+        foreach ($all_people as $person) {
+            $people_sorted_by_position[$person->position_name][] = $person;
+        }
+
+        return view('movies.detail', [
+            'movie' => $movie,
+            'people' => $people_sorted_by_position
+        ]);
+    }
+
     public function shawshank()
     {
         // $movie = DB::selectOne('
@@ -137,10 +168,10 @@ class MovieController extends Controller
         ]);
     }
 
-    public function moviesOfGenre()
+    public function moviesOfGenre($genre_slug)
     {
-        $genre_slug = $_GET['genre'];
-
+        // $genre_slug = $_GET['genre'];
+        dd('Displaying movie of genre ' . $genre_slug);
         $genre_query = "
             SELECT *
             FROM `genres`
