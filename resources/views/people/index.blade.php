@@ -8,6 +8,12 @@
 </head>
 <body>
 
+    @if ($success_message = session()->get('success_message'))
+        <div class="alert alert--success">
+            {{ $success_message }}
+        </div>
+    @endif
+
     <h1>People who are not Tom Holland</h1>
 
     <ul>

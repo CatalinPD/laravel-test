@@ -42,6 +42,8 @@ class PersonController extends Controller
 
         $person->save();
 
+        session()->flash('success_message', 'Person successfully inserted');
+
         // always redirects
         return redirect()->route('people.index');
     }
